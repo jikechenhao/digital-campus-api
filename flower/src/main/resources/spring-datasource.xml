@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 导入属性配置文件 -->
+    <!-- <context:property-placeholder location="classpath:druid.properties" /> -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="default">
+        <property name="locations">
+            <list>
+                <value>classpath:druid.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"></property>
+    </bean>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${postgres.driverClassName}"/>
+        <property name="url" value="${postgres.url}"/>
+        <property name="username" value="${postgres.username}"/>
+        <property name="password" value="${postgres.password}"/>
+
+        <property name="filters" value="${druid.filters}"/>
+
+        <property name="initialSize" value="${druid.initialSize}"/>
+        <property name="maxActive" value="${druid.maxActive}"/>
+        <property name="minIdle" value="${druid.minIdle}"/>
+        <property name="maxWait" value="${druid.maxWait}"/>
+
+        <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}"/>
+        <property name="maxOpenPreparedStatements" value="${druid.maxOpenPreparedStatements}"/>
+
+        <property name="validationQuery" value="${druid.validationQuery}"/>
+        <property name="validationQueryTimeout" value="${druid.validationQueryTimeout}"/>
+
+        <property name="testOnBorrow" value="${druid.testOnBorrow}"/>
+        <property name="testOnReturn" value="${druid.testOnReturn}"/>
+        <property name="testWhileIdle" value="${druid.testWhileIdle}"/>
+
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}"/>
+    </bean>
+
+</beans>

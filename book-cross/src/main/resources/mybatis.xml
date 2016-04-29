@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC
+        "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--指定mybatis的日志输出组件为log4j2 -->
+    <settings>
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
+    <!-- 别名，在此处配置之后在mapper文件中就可以避免写冗长的java类名，不是必选 -->
+    <typeAliases>
+        <package name="com.hwedu.bookcross.po"/>
+        <package name="com.hwedu.bookcross.dto"/>
+        <package name="com.hwedu.bookcross.vo"/>
+    </typeAliases>
+    <!-- 映射文件的路径 -->
+    <mappers>
+        <mapper resource="mappers/GroupDetailMapper.xml"/>
+        <mapper resource="mappers/BookMapper.xml"/>
+        <mapper resource="mappers/ProcessMapper.xml"/>
+        <mapper resource="mappers/GroupMapper.xml"/>
+        <mapper resource="mappers/StepMapper.xml"/>
+        <mapper resource="mappers/StepDetailMapper.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwedu.bookcross.dao.IGroupDetailDAO">
+
+    <resultMap id="GroupDetailVO" type="GroupDetailVO">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="groupId" column="group_id" jdbcType="VARCHAR"/>
+        <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
+        <result property="bookId" column="book_id" jdbcType="VARCHAR"/>
+        <result property="bookName" column="book_name" jdbcType="VARCHAR"/>
+        <result property="initTotal" column="init_total" jdbcType="INTEGER"/>
+        <result property="errorTotal" column="error_total" jdbcType="INTEGER"/>
+        <result property="crossTotal" column="cross_total" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insertOne" parameterType="GroupDetailPO"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            cross_t_group_detail (group_id, book_id, init_total, cross_total)
+        VALUES ('${groupId}', '${bookId}', #{initTotal}, #{initTotal});
+    </insert>
+    <select id="selectListByGroupId" resultMap="GroupDetailVO">
+        SELECT
+            t.id,
+            t.group_id,
+            b.name AS group_name,
+            t.book_id,
+            a.name AS book_name,
+            t.init_total,
+            t.error_total,
+            t.cross_total
+        FROM cross_t_group_detail AS t
+            LEFT JOIN cross_t_book AS a ON t.book_id = a.id
+            LEFT JOIN cross_t_group AS b ON t.group_id = b.id
+        WHERE t.group_id = '${groupId}' AND b.is_deleted = FALSE AND b.is_enabled = FALSE
+    </select>
+    <select id="selectOneByByGroupIdAndBookId" resultMap="GroupDetailVO">
+        SELECT
+            t.id,
+            t.group_id,
+            t.book_id,
+            t.init_total,
+            t.error_total,
+            t.cross_total
+        FROM cross_t_group_detail AS t
+        WHERE t.group_id = '${groupId}' AND t.book_id = '${bookId}'
+    </select>
+    <update id="updateErrorAndCrossTotal">
+        UPDATE cross_t_group_detail
+        SET error_total = error_total + #{errorTotal}, cross_total = cross_total - #{errorTotal}
+        WHERE
+            group_id = #{groupId} AND
+            book_id = #{bookId}
+
+    </update>
+    <update id="updateInitTotalByIdAndIncrement">
+        UPDATE
+            cross_t_group_detail
+        SET init_total = init_total + #{increment}, cross_total = cross_total + #{increment}
+        WHERE id = '${id}'
+    </update>
+    <update id="deleteByGroupId">
+        UPDATE cross_t_group_detail
+        SET is_deleted = TRUE
+        WHERE group_id = '${groupId}'
+    </update>
+    <update id="deleteByBookId">
+        UPDATE cross_t_group_detail
+        SET is_deleted = TRUE
+        WHERE book_id = '${bookId}'
+    </update>
+    <update id="deleteByGroupIdAndBookId">
+        UPDATE cross_t_group_detail
+        SET is_deleted = TRUE
+        WHERE group_id = '${groupId}' AND book_id = '${bookId}'
+    </update>
+
+</mapper>

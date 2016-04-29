@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwedu.bookcross.dao.IStepDAO">
+
+    <resultMap id="StepVO" type="StepVO">
+        <result column="id" property="id" javaType="String"/>
+        <result column="index" property="index" javaType="Integer"/>
+        <result column="group_id" property="groupId" javaType="String"/>
+        <result column="class_id" property="classId" javaType="String"/>
+        <result column="enum_state" property="enumProcessState" javaType="Integer"/>
+    </resultMap>
+
+    <select id="countByProcessId" parameterType="String" resultType="Integer">
+        SELECT count(id)
+        FROM cross_t_step
+        WHERE process_id = '${processId}';
+    </select>
+    <select id="selectListByProcessIdAndMaxIndex" resultMap="StepVO">
+        SELECT
+            id,
+            index,
+            group_id,
+            class_id,
+            enum_step_state
+        FROM cross_t_step
+        WHERE process_id = '${processId}' AND index = (SELECT max(index)
+                                                       FROM cross_t_step
+                                                       WHERE process_id = '${processId}');
+    </select>
+    <update id="updateStateById">
+        UPDATE cross_t_step
+        SET enum_state = #{state}
+        WHERE id = '${stepId}';
+    </update>
+    <insert id="insertOne" parameterType="StepPO">
+        INSERT INTO cross_t_step (index, enum_state, class_id, group_id, process_id)
+        VALUES (#{index}, #{enumProcessState}, '${classId}', '${groupId}', '${processId}');
+    </insert>
+    <select id="selectListByState" resultMap="StepVO">
+        SELECT
+            id,
+            group_id,
+            class_id
+        FROM cross_t_step
+        WHERE enum_state = #{state};
+    </select>
+    <select id="selectOneByClassIdAndMaxState" resultMap="StepVO">
+        SELECT
+            id,
+            index,
+            group_id,
+            class_id,
+            enum_step_state
+        FROM cross_t_step
+        WHERE class_id = '${classId}'
+        <![CDATA[
+              AND enum_step_state < #{state}
+        ]]>
+    </select>
+
+</mapper>

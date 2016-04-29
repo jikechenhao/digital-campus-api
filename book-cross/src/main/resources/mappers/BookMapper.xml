@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwedu.bookcross.dao.IBookDAO">
+
+    <resultMap id="BookVO" type="BookVO">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="storeTotal" column="store_total" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectOneByName" resultMap="BookVO">
+        SELECT
+            id,
+            name,
+            store_total
+        FROM
+            cross_t_book
+        WHERE name = #{name};
+    </select>
+    <select id="selectOneById" resultMap="BookVO">
+        SELECT
+            id,
+            name,
+            store_total
+        FROM
+            cross_t_book
+        WHERE id = '${id}';
+    </select>
+    <!--    <update id="updateStoreTotalByName">
+            UPDATE cross_t_book
+            SET store_total = store_total + #{increment}
+            WHERE name = #{name}
+        </update>-->
+    <update id="updateStoreTotalById">
+        UPDATE cross_t_book
+        SET store_total = store_total + #{increment}
+        WHERE id = '${id}'
+    </update>
+    <insert id="insertOne" parameterType="BookPO" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO cross_t_book (name, store_total)
+        VALUES (#{name}, #{storeTotal});
+    </insert>
+    <update id="updateOne" parameterType="BookDTO">
+        UPDATE cross_t_book
+        <trim suffixOverrides=",">
+            <set>
+                <if test="name!=null">
+                    name=#{name} ,
+                </if>
+                <if test="author!=null">
+                    author=#{author} ,
+                </if>
+                <if test="intro!=null">
+                    intro=#{intro} ,
+                </if>
+                <if test="press!=null">
+                    press=#{press} ,
+                </if>
+                <if test="storeTotal!=null">
+                    store_total=#{storeTotal},
+                </if>
+                modify_time=now()
+            </set>
+        </trim>
+        <where>
+            id='${id}'
+        </where>
+    </update>
+    <update id="deleteById">
+        UPDATE cross_t_book
+        SET is_deleted = TRUE
+        WHERE id = '${id}';
+    </update>
+    <select id="checkCutStoreTotalById" resultType="Integer">
+        SELECT store_total - #{increment}
+        FROM cross_t_book
+        WHERE id = '${id}'
+    </select>
+</mapper>

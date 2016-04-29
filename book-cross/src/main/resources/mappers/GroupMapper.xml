@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwedu.bookcross.dao.IGroupDAO">
+    <resultMap type="GroupVO" id="GroupVO">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <!--        <result column="delete_flag" property="isDeleted" jdbcType="BOOLEAN"/>
+                <collection property="bookGroups" ofType="BookGroupVO">
+                    <id column="bgid" property="id" javaType="String"/>
+                    <result column="bgbook_id" property="bookId" javaType="String"/>
+                    <result column="bggroup_id" property="groupId" javaType="String"/>
+                    <result column="cross_total" property="crossTotal" javaType="Integer"/>
+                    <result column="error_total" property="errorTotal" javaType="Integer"/>
+                    <result column="init_total" property="initTotal" javaType="Integer"/>
+                </collection>-->
+        <!-- 时间映射问题待解决 -->
+        <!--        <collection property="books" ofType="BookVO">
+                    <id column="bid" property="id" javaType="String"/>
+                    <result column="bname" property="name" javaType="String"/>
+                    <result column="intro" property="intro" javaType="String"/>
+                    <result column="author" property="author" javaType="String"/>
+                    <result column="press" property="press" javaType="String"/>
+                    <result column="create_time" property="createTime" javaType="java.sql.Date"
+                            jdbcType="TIMESTAMP"/>
+                    <result column="modify_time" property="modifyTime" javaType="java.sql.Date"
+                            jdbcType="TIMESTAMP"/>
+                    <result column="isDeleted" property="isDeleted" javaType="Boolean"/>
+                    <result column="store_total" property="storeTotal" javaType="Integer"/>
+                </collection>-->
+    </resultMap>
+
+    <!--lizhiqiang begin-->
+    <select id="selectOneByName" parameterType="String" resultMap="GroupVO">
+        SELECT
+            id,
+            name
+        FROM cross_t_group
+        WHERE name = #{name}
+    </select>
+    <insert id="insertOne" parameterType="GroupPO" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO cross_t_group (name)
+        VALUES (#{name})
+    </insert>
+    <select id="checkIsEnabled" parameterType="String" resultType="Boolean">
+        SELECT is_enabled
+        FROM cross_t_group
+        WHERE id = '${groupId}'
+    </select>
+    <update id="updateOne" parameterType="GroupDTO">
+        UPDATE cross_t_group
+        SET name = #{name}
+        WHERE id = '${id}'
+    </update>
+    <update id="deleteById">
+        UPDATE cross_t_group AS t
+        SET t.is_deleted = TRUE
+        WHERE t.id = '${id}'
+    </update>
+    <select id="selectListIsEnabled" resultType="GroupVO">
+        SELECT
+            id,
+            name
+        FROM cross_t_group
+        WHERE is_enabled = #{isEnabled}
+    </select>
+    <!--lizhiqiang end-->
+
+
+    <!--    <select id="queryAllGroup" resultMap="GroupVO" parameterType="PageBean">
+            SELECT id,name,delete_flag
+            FROM cross_t_group WHERE delete_flag!=true
+            <if test="pageSize!=null and currentPage!=null">
+                LIMIT #{pageSize} OFFSET
+                #{currentPage}
+            </if>
+        </select>
+        <updateOne id="deleteAndUpdateById" parameterType="GroupDTO">
+            UPDATE cross_t_group
+            <trim suffixOverrides=",">
+                <set>
+                    <if test="name!=null">
+                        name=#{name} ,
+                    </if>
+                    <if test="isDeleted!=null">
+                        delete_flag=#{isDeleted}
+                    </if>
+                </set>
+                <where>
+                    id='${id}'
+                </where>
+            </trim>
+        </updateOne>
+        <select id="queryRecordCount" resultType="Integer">
+            SELECT count(id)
+            FROM
+                cross_t_group
+            WHERE cross_t_group.delete_flag != TRUE
+        </select>
+
+        <select id="queryGroupIncludeBookList" resultMap="GroupVO"
+                parameterType="GroupDTO">
+            SELECT
+                cg.id,
+                cg.name,
+                cg.delete_flag,
+                cbg.id       AS
+                                bgid,
+                cbg.book_id  AS
+                                bgbook_id,
+                cbg.group_id AS
+                                bggroup_id,
+                cbg.cross_total,
+                cbg.error_total,
+                cbg.init_total,
+                cb.id        AS
+                                bid,
+                cb.name      AS
+                                bname,
+                cb.author,
+                cb.intro,
+                cb.press,
+                cb.create_time,
+                cb.modify_time,
+                cb.store_total,
+                cb.delete_flag
+                             AS bdeleteFlag
+            FROM cross_t_group cg LEFT OUTER JOIN
+                cross_t_book_group cbg ON cg.id = cbg.group_id
+                LEFT OUTER JOIN
+                cross_t_book cb ON cbg.book_id = cb.id
+            WHERE cg.id = '${id}'
+        </select>-->
+</mapper>

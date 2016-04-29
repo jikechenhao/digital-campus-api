@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwedu.bookcross.dao.IProcessDAO">
+    <resultMap id="ProcessVO" type="ProcessVO">
+        <result column="id" property="id" javaType="String"/>
+        <result column="name" property="name" javaType="String"/>
+        <result column="grade_id" property="gradeId" javaType="String"/>
+        <result column="group_id_json" property="groupIdJSON" javaType="String"/>
+        <result column="expected_steps" property="expectedSteps"
+                javaType="Integer"/>
+    </resultMap>
+
+
+    <!--lizhiqiang begin-->
+    <select id="selectListByTermIdAndDayOfWeekAndStates" resultMap="ProcessVO">
+        SELECT
+        t.id,
+        t.name,
+        t.grade_id,
+        t.group_id_json,
+        t.expected_steps
+        FROM cross_t_process AS t
+        WHERE t.term_id = '${termId}'
+        AND t.start_week_day = #{dayOfWeek}
+        AND t.enum_state IN
+        <foreach collection="states" item="item" index="index" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <update id="updateStateById">
+        UPDATE cross_t_process
+        SET enum_state = #{state}
+        WHERE id = '${processId}';
+    </update>
+
+    <insert id="insert" parameterType="ProcessPO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO cross_t_process (name, grade_id, group_id_json, term_id, expected_steps, enum_process_state,
+                                     config_id,
+                                     manager_id, start_week_day) VALUES (#{name}, '${gradeId}', #{groupIdJSON},
+                                                                         '${termId}', #{expectedSteps},
+                                                                         #{enumProcessState}, #{configId}, #{managerId},
+                                                                         #{startWeekDay})
+    </insert>
+
+    <update id="update" parameterType="ProcessDTO">
+        UPDATE cross_t_process
+        <trim suffixOverrides=",">
+            <set>
+                <if test="name!=null">
+                    name=#{name} ,
+                </if>
+                <if test="gradeId!=null">
+                    grade_id='${gradeId}',
+                </if>
+                <if test="groupIdJSON!=null">
+                    group_id_json=#{groupIdJSON} ,
+                </if>
+                <if test="termId!=null">
+                    term_id='${termId}' ,
+                </if>
+                <if test="expectedSteps!=null">
+                    expected_steps=#{expectedSteps},
+                </if>
+                <if test="enumProcessState!=null">
+                    enum_process_state=#{enumProcessState},
+                </if>
+                <if test="configId!=null">
+                    config_id=#{configId},
+                </if>
+                <if test="managerId!=null">
+                    manager_id=#{managerId},
+                </if>
+                <if test="startWeekDay!=null">
+                    start_week_day=#{startWeekDay},
+                </if>
+                modify_time=now()
+            </set>
+        </trim>
+        <where>
+            id='${id}'
+        </where>
+    </update>
+    <update id="updateWeekDayById">
+        UPDATE cross_t_process
+        SET start_week_day = #{weekDay}
+        WHERE id = '${id}'
+    </update>
+    <update id="deleteById">
+        UPDATE cross_t_process
+        SET is_deleted = TRUE
+        WHERE id = '${id}'
+    </update>
+</mapper>

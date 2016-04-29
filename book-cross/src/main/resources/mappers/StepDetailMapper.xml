@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwedu.bookcross.dao.IStepDetailDAO">
+    <resultMap id="GroupDetailVO" type="GroupDetailVO">
+        <result column="book_id" property="bookId" javaType="String"/>
+        <result column="group_id" property="groupId" javaType="String"/>
+        <result column="error_total" property="errorTotal" javaType="Integer"/>
+    </resultMap>
+
+    <insert id="insertOne" parameterType="StepDetailPO">
+        INSERT INTO cross_t_step_detail (step_id, student_id, book_id, enum_step_detail_state)
+        VALUES ('${stepId}', '${studentId}',
+                '${bookId}',
+                #{enumProcessState});
+    </insert>
+
+    <select id="selectListByStepId" resultMap="GroupDetailVO">
+        SELECT
+            t_step_detail.id,
+            t_step_detail.step_id,
+            t_step_detail.book_id,
+            t_book.name AS book_name,
+            t_step_detail.student_id,
+            t_step_detail.enum_step_detail_state
+        FROM cross_t_step_detail AS t_step_detail
+            LEFT JOIN cross_t_book AS t_book ON book_id = t_book.id
+        WHERE step_id = '${id}'
+    </select>
+
+    <update id="updateStateById">
+        UPDATE cross_t_step_detail
+        SET enum_step_detail_state = #{state}
+        WHERE id = '${id}'
+    </update>
+
+    <update id="updateStateByIdAndOffset">
+        UPDATE cross_t_step_detail
+        SET enum_step_detail_state = enum_step_detail_state + #{offset}
+        WHERE id = '${id}'
+
+    </update>
+
+    <select id="selectListByClassIdAndState" resultMap="stepDetailMap">
+        SELECT
+            t_step_detail.id,
+            t_step_detail.step_id,
+            t_step_detail.book_id,
+            t_book.name AS book_name,
+            t_step_detail.student_id,
+            t_step_detail.enum_step_detail_state
+        FROM cross_t_step_detail AS t_step_detail
+            LEFT JOIN cross_t_book AS t_book ON book_id = t_book.id
+            LEFT JOIN cross_t_step AS t_step ON t_step_detail.step_id = t_step.id
+            LEFT JOIN cross_t_process AS t_process ON t_step.process_id = t_process.id
+        WHERE t_step_detail.enum_step_detail_state = 4 AND t_process.enum_process_state IN (2, 3)
+    </select>
+</mapper>
