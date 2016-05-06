@@ -56,7 +56,6 @@ public class ProcessManager extends BaseAPI {
         List<String> json = JSON.parseArray(ids, String.class);
         processService.batchToggleState(json, isPause);
         return normalResult("切换漂流状态成功");
-
     }
 
     @RequestMapping(value = "/u/3", method = RequestMethod.POST)

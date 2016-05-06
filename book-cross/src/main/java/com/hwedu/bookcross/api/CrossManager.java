@@ -53,9 +53,15 @@ public class CrossManager extends BaseAPI {
         return normalResult("查询未还记录成功", stepDetailVOs);
     }
 
-    //根据当前班级年级查询当前流程
-    //根据当前流程，查询当前所经历过的步详情
+    //根据当前年级查询当前流程
+
+    //根据当前流程，查询经历过的所有步，以生成漂流图
+
+    //根据某一步，查询该步的详情
+
     //点击某一步，进入查看该步下的借书单
+
+    //统计所有异常记录，并根据步和流程分组，便于统一处理归还
 
     public Object findProcessNow() {
         return null;

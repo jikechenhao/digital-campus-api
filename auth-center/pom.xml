@@ -1,15 +1,12 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hwedu</groupId>
-    <artifactId>book-cross</artifactId>
+    <artifactId>auth-center</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>book-cross Maven Webapp</name>
+    <name>auth-center Maven Webapp</name>
 
-    <!-- scope的取值： compile，缺省值，适用于所有阶段，会随着项目一起发布。 provided，类似compile，期望JDK、容器或使用者会提供这个依赖。如servlet.jar。
-        runtime，只在运行时使用，如JDBC驱动，适用运行和测试阶段。 test，只在测试时使用，用于编译和运行测试代码。不会随项目发布。 system，类似provided，需要显式提供包含依赖的jar，Maven不会在Repository中查找它。 -->
     <dependencies>
         <!--生产环境无关 -->
         <dependency>
@@ -124,34 +121,6 @@
             <version>1.2.8</version>
         </dependency>
 
-        <!-- 文件上传 -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.2</version>
-        </dependency>
-
-        <!-- poi -->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>3.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml-schemas</artifactId>
-            <version>3.13</version>
-        </dependency>
         <!-- 数字校园公共项目 -->
         <dependency>
             <groupId>com.campus</groupId>
@@ -160,7 +129,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>book-cross</finalName>
+        <finalName>auth-center</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -174,8 +143,4 @@
             </plugin>
         </plugins>
     </build>
-    <properties>
-        <!-- encoding -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 </project>
