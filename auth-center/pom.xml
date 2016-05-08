@@ -122,11 +122,11 @@
         </dependency>
 
         <!-- 数字校园公共项目 -->
-        <dependency>
+<!--        <dependency>
             <groupId>com.campus</groupId>
             <artifactId>commons-campus</artifactId>
             <version>0.0.1</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
     <build>
         <finalName>auth-center</finalName>
