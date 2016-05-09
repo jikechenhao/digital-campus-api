@@ -28,7 +28,7 @@ public class ProcessManager extends BaseAPI {
     @RequestMapping(value = "/c")
     public Object addProcess(ProcessDTO processDTO) {
         processDTO.setTermId(RemoteDataGetter.getTermIdNow());
-        processDTO.setExpectedSteps(RemoteDataGetter.getClassListByGradeId(processDTO.getGradeId()).size());
+        //processDTO.setExpectedSteps(RemoteDataGetter.getClassListByGradeId(processDTO.getGradeId()).size());
         processDTO.setEnumState(Variables.getInstance().getProcessStateReady());
         processDTO.setConfigId(Variables.getInstance().getProcessDefaultConfigId());
         processService.saveProcess(processDTO);

@@ -1,6 +1,5 @@
 package com.hwedu.bookcross.common.tool;
 
-import com.hwedu.common.vo.BaseClassVO;
 
 import java.util.List;
 
@@ -15,7 +14,9 @@ public final class RemoteDataGetter {
     }
 
 
+/*
     public static List<BaseClassVO> getClassListByGradeId(String gradeId) {
         return null;
     }
+*/
 }

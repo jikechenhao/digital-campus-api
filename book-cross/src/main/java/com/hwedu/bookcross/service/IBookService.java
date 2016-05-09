@@ -3,6 +3,8 @@ package com.hwedu.bookcross.service;
 import com.hwedu.bookcross.dto.BookDTO;
 import com.hwedu.bookcross.vo.BookVO;
 
+import java.util.List;
+
 /**
  * 图书service接口
  * <p>
@@ -62,4 +64,5 @@ public interface IBookService {
 
     boolean tryCutStore(String id, Integer increment);
 
+    List<BookVO> queryAllBook();
 }

@@ -15,11 +15,11 @@
     </typeAliases>
     <!-- 映射文件的路径 -->
     <mappers>
-        <mapper resource="mappers/GroupDetailMapper.xml"/>
         <mapper resource="mappers/BookMapper.xml"/>
+<!--        <mapper resource="mappers/GroupDetailMapper.xml"/>
         <mapper resource="mappers/ProcessMapper.xml"/>
         <mapper resource="mappers/GroupMapper.xml"/>
         <mapper resource="mappers/StepMapper.xml"/>
-        <mapper resource="mappers/StepDetailMapper.xml"/>
+        <mapper resource="mappers/StepDetailMapper.xml"/>-->
     </mappers>
 </configuration>

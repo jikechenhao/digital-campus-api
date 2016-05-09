@@ -6,6 +6,8 @@ import com.hwedu.bookcross.vo.BookVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 图书DAO
  * <p>
@@ -60,4 +62,6 @@ public interface IBookDAO {
      * Created by lizhiqiang
      */
     int checkCutStoreTotalById(@Param("id") String id, @Param("increment") Integer increment);
+
+    List<BookVO> selectAllBook();
 }

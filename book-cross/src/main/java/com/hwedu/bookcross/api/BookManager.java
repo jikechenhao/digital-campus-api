@@ -9,6 +9,8 @@ import com.hwedu.bookcross.vo.BookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 图书管理
  * <p>
@@ -41,11 +43,22 @@ public class BookManager extends BaseAPI {
     }
 
     /**
+     * 获取所有书籍信息
+     * <p>
+     * Created by lizhiqiang
+     */
+    @RequestMapping(value = "/r/0", method = RequestMethod.GET)
+    public Object findAllBooks() {
+        List<BookVO> bookVOs = bookService.queryAllBook();
+        return normalResult("查询图书成功", bookVOs);
+    }
+
+    /**
      * 根据id查找图书信息
      * <p>
      * Created by lizhiqiang
      */
-    @RequestMapping(value = "/r/0/{bookId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/r/1/{bookId}", method = RequestMethod.GET)
     public Object findBookById(@PathVariable(value = "bookId") String bookId) {
         BookVO vo = bookService.queryOneBookById(bookId);
         return normalResult("查询图书成功", vo);
@@ -56,11 +69,12 @@ public class BookManager extends BaseAPI {
      * <p>
      * Created by lizhiqiang
      */
-    @RequestMapping(value = "/r/1", method = RequestMethod.POST)
+    @RequestMapping(value = "/r/2", method = RequestMethod.POST)
     public Object findBookByName(@RequestParam("name") String bookName) {
         BookVO vo = bookService.queryOneBookByName(bookName);
         return normalResult("查询图书成功", vo);
     }
+
 
     /**
      * 在原有库存量的基础上做增减操作

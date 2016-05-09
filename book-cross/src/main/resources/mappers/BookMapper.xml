@@ -7,7 +7,22 @@
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="storeTotal" column="store_total" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="press" column="press" jdbcType="VARCHAR"/>
+        <result property="intro" column="intro" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <select id="selectAllBook" resultMap="BookVO">
+        SELECT
+            t.id,
+            t.name,
+            t.store_total,
+            t.author,
+            t.press,
+            t.intro
+        FROM cross_t_book AS t
+        WHERE t.is_deleted = FALSE
+    </select>
 
     <select id="selectOneByName" resultMap="BookVO">
         SELECT
@@ -39,8 +54,8 @@
     </update>
     <insert id="insertOne" parameterType="BookPO" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO cross_t_book (name, store_total)
-        VALUES (#{name}, #{storeTotal});
+        INSERT INTO cross_t_book (name, store_total, author, press, intro)
+        VALUES (#{name}, #{storeTotal}, #{author}, #{press}, #{intro});
     </insert>
     <update id="updateOne" parameterType="BookDTO">
         UPDATE cross_t_book

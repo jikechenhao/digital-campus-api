@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 图书service实现
  * <p>
@@ -68,6 +70,11 @@ public class BookService implements IBookService {
     }
 
     @Override
+    public List<BookVO> queryAllBook() {
+        return bookDAO.selectAllBook();
+    }
+
+    @Override
     public BookVO queryOneBookById(String bookId) {
         return bookDAO.selectOneById(bookId);
     }
@@ -81,6 +88,9 @@ public class BookService implements IBookService {
         BookPO po = new BookPO();
         po.setName(dto.getName());
         po.setStoreTotal(dto.getStoreTotal());
+        po.setAuthor(dto.getAuthor());
+        po.setPress(dto.getPress());
+        po.setIntro(dto.getIntro());
         return po;
     }
 
