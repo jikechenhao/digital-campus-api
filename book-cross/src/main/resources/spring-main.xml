@@ -20,5 +20,5 @@
     <!--mybatis整合相关配置-->
     <import resource="spring-mybatis.xml"/>
     <!--定时器相关配置-->
-    <import resource="spring-task.xml"/>
+    <!--<import resource="spring-task.xml"/>-->
 </beans>
