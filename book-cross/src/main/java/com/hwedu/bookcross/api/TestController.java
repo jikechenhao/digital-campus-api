@@ -23,7 +23,7 @@ public class TestController extends BaseAPI {
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     public Object testPost(HttpServletRequest request) {
         System.out.println("---------------------post------------------------");
-        System.out.println("========="+JSON.toJSONString(request.getParameterMap()));
+        System.out.println("========="+JSON.toJSONString(request));
         return normalResult("post success");
     }
 }

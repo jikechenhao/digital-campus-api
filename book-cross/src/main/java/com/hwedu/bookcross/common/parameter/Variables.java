@@ -38,6 +38,8 @@ public final class Variables {
     private int resultCodeError;//正常返回的结果代码
     private int resultCodeErrorSystem;//正常返回的结果代码
 
+    private String excelNameInRequest;
+
     private Variables() {
     }
 
@@ -159,5 +161,9 @@ public final class Variables {
 
     public String getProcessDefaultConfigId() {
         return processDefaultConfigId;
+    }
+
+    public String getExcelNameInRequest() {
+        return excelNameInRequest;
     }
 }

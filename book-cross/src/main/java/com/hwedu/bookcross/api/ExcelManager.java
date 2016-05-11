@@ -1,6 +1,7 @@
 package com.hwedu.bookcross.api;
 
 import com.hwedu.bookcross.api.base.BaseAPI;
+import com.hwedu.bookcross.common.parameter.Variables;
 import com.hwedu.bookcross.common.tool.ExcelTool;
 import com.hwedu.bookcross.common.util.StringUtil;
 import com.hwedu.bookcross.exception.CheckException;
@@ -142,7 +143,7 @@ public class ExcelManager extends BaseAPI {
      */
     private Object uploadHandle(HttpServletRequest request, IDataToMapFunction pipeFunction, IBatchImportFunction importBatchFunction) throws CheckException {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        MultipartFile file = multipartRequest.getFile("testfile");
+        MultipartFile file = multipartRequest.getFile(Variables.getInstance().getExcelNameInRequest());
         if (file != null) {
             String fileName = file.getOriginalFilename();
             if (fileName.endsWith("xls") || fileName.endsWith("xlsx")) {
