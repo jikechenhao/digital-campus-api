@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hwedu.dao.IFlowerGroupDao">
-    <!-- 添加一个小组默认未删除 -->
-    <insert id="insertOneGroup" parameterType="FlowerGroupPO" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO flower_t_group(name,class_id) VALUES (#{name},'${classId}')
-	</insert>
-</mapper>
