@@ -153,11 +153,11 @@
             <version>3.13</version>
         </dependency>
         <!-- 数字校园公共项目 -->
-<!--        <dependency>
-            <groupId>com.campus</groupId>
-            <artifactId>commons-campus</artifactId>
-            <version>0.0.1</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>com.campus</groupId>
+                    <artifactId>commons-campus</artifactId>
+                    <version>0.0.1</version>
+                </dependency>-->
     </dependencies>
     <build>
         <finalName>book-cross</finalName>
